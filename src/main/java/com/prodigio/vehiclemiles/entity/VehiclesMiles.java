@@ -1,13 +1,21 @@
 package com.prodigio.vehiclemiles.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -19,53 +27,53 @@ public class VehiclesMiles {
     private Long id;
 
     @Column(name = "county_fips")
-    @NotEmpty(message = "county_fips is required")
+    @NotNull(message = "county_fips es requerido")
     private Integer county_fips;
 
     @Column(name = "county_name")
-    @NotEmpty(message = "county_name is required")
+    @NotEmpty(message = "county_name es requerido")
     private String county_name;
 
     @Column(name = "state_name")
-    @NotEmpty(message = "state_name is required")
+    @NotEmpty(message = "state_name es requerido")
     private String state_name;
 
     @Column(name = "date")
-    @Temporal(TemporalType.DATE)
-    @NotEmpty(message = "date is required")
-    private Date date;  //05-08-20 (MM-DD-YYYY), 4/30/20 (MM/DD/YYYY)
+    @JsonFormat(pattern="dd-MM-yyyy")
+    @NotNull(message = "date es requerido")
+    private Date date;  //05-08-20 (DD-MM-YYYY)
 
     @Column(name = "county_vmt")
-    @NotEmpty(message = "county_vmt is required")
+    @NotNull(message = "county_vmt es requerido")
     private Integer county_vmt;
 
     @Column(name = "baseline_jan_vmt")
-    @NotEmpty(message = "baseline_jan_vmt is required")
+    @NotNull(message = "baseline_jan_vmt es requerido")
     private Integer baseline_jan_vmt;
 
     @Column(name = "percent_change_from_jan", scale = 2)
-    @NotEmpty(message = "percent_change_from_jan is required")
+    @NotNull(message = "percent_change_from_jan es requerido")
     private Double percent_change_from_jan;
 
     @Column(name = "mean7_county_vmt", scale = 2)
-    @NotEmpty(message = "mean7_county_vmtis required")
+    @NotNull(message = "mean7_county_vmtes requerido")
     private Double mean7_county_vmt;
 
     @Column(name = "mean7_percent_change_from_jan", scale = 2)
-    @NotEmpty(message = "mean7_percent_change_from_jan required")
+    @NotNull(message = "mean7_percent_change_from_jan required")
     private Double mean7_percent_change_from_jan;
 
     @Column(name = "date_at_low")
-    @Temporal(TemporalType.DATE)
-    @NotEmpty(message = "date_at_low is required")
-    private Date date_at_low;  //05-08-20 (MM-DD-YYYY)
+    @JsonFormat(pattern="dd-MM-yyyy")
+    @NotNull(message = "date_at_low es requerido")
+    private Date date_at_low;  //05-08-20 (DD-MM-YYYY)
 
     @Column(name = "mean7_county_vmt_at_low", scale = 2)
-    @NotEmpty(message = "mean7_county_vmt_at_low is required")
+    @NotNull(message = "mean7_county_vmt_at_low es requerido")
     private Double mean7_county_vmt_at_low;
 
     @Column(name = "percent_change_from_low", scale = 2)
-    @NotEmpty(message = "percent_change_from_low is required")
+    @NotNull(message = "percent_change_from_low es requerido")
     private Double percent_change_from_low;
 
 }
