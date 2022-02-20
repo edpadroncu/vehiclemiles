@@ -1,6 +1,5 @@
 package com.prodigio.vehiclemiles.common.exceptions;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,6 @@ import java.util.List;
 
 @Getter
 @Setter
-//@AllArgsConstructor
 public class ApiError {
 
     private String message;

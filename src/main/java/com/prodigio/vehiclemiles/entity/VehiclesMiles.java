@@ -1,21 +1,11 @@
 package com.prodigio.vehiclemiles.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.SneakyThrows;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -56,7 +46,7 @@ public class VehiclesMiles {
     private Double percent_change_from_jan;
 
     @Column(name = "mean7_county_vmt", scale = 2)
-    @NotNull(message = "mean7_county_vmtes requerido")
+    @NotNull(message = "mean7_county_vmt es requerido")
     private Double mean7_county_vmt;
 
     @Column(name = "mean7_percent_change_from_jan", scale = 2)

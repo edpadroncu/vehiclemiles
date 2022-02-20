@@ -1,29 +1,19 @@
 package com.prodigio.vehiclemiles.controller;
 
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.prodigio.vehiclemiles.common.Helper;
 import com.prodigio.vehiclemiles.entity.VehiclesMiles;
 import com.prodigio.vehiclemiles.service.VehicleMilesService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController()
 public class VehicleMilesController {
-
-    private static final Logger logger = LogManager.getLogger(VehicleMilesController.class);
 
     @Autowired
     private VehicleMilesService vehicleMilesService;
@@ -56,6 +46,9 @@ public class VehicleMilesController {
         return helper.httpResponse(true, vehicleMilesService.getVehiclesMilesById(id), HttpStatus.OK);
     }
 
-    
+    @PostMapping("/vehicle-miles/upload-data")
+    public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) throws IOException {
+        return helper.httpResponse(true, vehicleMilesService.uploadData(file), HttpStatus.OK);
+    }
 
 }
