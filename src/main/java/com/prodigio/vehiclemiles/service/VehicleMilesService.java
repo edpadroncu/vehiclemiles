@@ -69,7 +69,9 @@ public class VehicleMilesService {
     }
 
     public Map<String, Object> uploadData(MultipartFile file) throws IOException {
-        if (!file.getContentType().equals("text/csv"))
+        if (Strings.isEmpty(file.getOriginalFilename()))
+            throw new ValidationException("Archivo no encontrado. Seleccione un archivo .csv para cargar los datos.");
+        if (!file.getContentType().equals("text/csv") && !file.getContentType().equals("application/vnd.ms-excel"))
             throw new ValidationException("Solo se permiten archivos .csv");
 
         List<String> errors = new ArrayList<>();

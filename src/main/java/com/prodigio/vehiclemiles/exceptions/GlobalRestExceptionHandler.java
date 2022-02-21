@@ -1,4 +1,4 @@
-package com.prodigio.vehiclemiles.common.exceptions;
+package com.prodigio.vehiclemiles.exceptions;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.prodigio.vehiclemiles.common.Helper;
@@ -108,7 +108,8 @@ public class GlobalRestExceptionHandler extends ResponseEntityExceptionHandler {
         logger.error(ex.getClass().getName() + " " + ex.getLocalizedMessage());
         List<String> errors = new ArrayList<>();
         errors.add(ex.getMessage());
-        return helper.httpResponse(false, new HashMap<String,Object>(){{put("errors", errors);}}, HttpStatus.UNPROCESSABLE_ENTITY);
+        ApiError apiError = new ApiError("Error de validación", errors);
+        return helper.httpResponse(false, apiError, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @Override

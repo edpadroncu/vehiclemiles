@@ -1,0 +1,385 @@
+swagger: "2.0"
+info:
+  description: "Descripción REST API para registrar y manipular los datos de las Millas Recorridas por Vehículos"
+  version: "1.0.0"
+  title: "Vehicle Miles Traveled"
+  termsOfService: ""
+  contact:
+    email: "edpadron.cu@gmail.com"
+host: "localhost:8080"
+#basePath: "/api"
+tags:
+- name: "Vehicle Miles"
+  description: "Servicios relacionados a la manipulación de los datos de Millas Recorridas por Vehículos"
+
+schemes:
+- "http"
+#- "https"
+
+definitions:
+  VehicleMiles:
+    properties:
+      id:
+        type: number
+        example: "1"
+      county_fips:
+       type: number
+       example: 1001
+      county_name:
+        type: string
+        example: "Autauga"
+      state_name:
+        type: string
+        example: "Alabama"
+      date:
+        type: string
+        example: "20-02-2022"
+        format: "dd-MM-yyyy"
+      county_vmt:
+        type: number
+        example: 3550000
+      baseline_jan_vmt:
+        type: number
+        example: 3550000
+      percent_change_from_jan:
+        type: number
+        example: -0.6
+      mean7_county_vmt:
+        type: number
+        example: 2790000
+      mean7_percent_change_from_jan:
+        type: number
+        example: -21.88
+      date_at_low:
+        type: string
+        example: "04-12-2020"
+        format: "dd-MM-yyyy"
+      mean7_county_vmt_at_low:
+        type: number
+        example: 1542857.14
+      percent_change_from_low:
+        type: number
+        example: 76.57
+  422Response:
+    properties:
+      success:
+        type: boolean
+        example: false
+      response:
+        properties:
+          data:
+            properties:
+              message:
+                type: string
+              error:
+                type: array
+                items:
+                  type: string
+              debug_error:
+                type: string
+
+paths:
+  /vehicle-miles:
+    get:
+      tags:
+      - Vehicle Miles
+      summary: "Listar"
+      description: "Servicio para obtener todos los registros"
+      operationId: "getAllVM"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Operación exitosa"
+          schema:
+            properties:
+              success:
+                type: boolean
+              response:
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/definitions/VehicleMiles"
+
+        "422":
+          description: "Validaciones y excepciones controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+
+        "500":
+          description: "Excepciones no controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+    post:
+      tags:
+      - Vehicle Miles
+      summary: "Adicionar registro"
+      description: "Servicio para adicionar un registro"
+      operationId: "addVM"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Payload. Datos de entrada."
+        required: true
+        schema:
+          properties:
+            county_fips:
+             type: number
+             example: 1001
+            county_name:
+              type: string
+              example: "Autauga"
+            state_name:
+              type: string
+              example: "Alabama"
+            date:
+              type: string
+              example: "20-02-2022"
+              format: "dd-MM-yyyy"
+            county_vmt:
+              type: number
+              example: 3550000
+            baseline_jan_vmt:
+              type: number
+              example: 3550000
+            percent_change_from_jan:
+              type: number
+              example: -0.6
+            mean7_county_vmt:
+              type: number
+              example: 2790000
+            mean7_percent_change_from_jan:
+              type: number
+              example: -21.88
+            date_at_low:
+              type: string
+              example: "04-12-2020"
+              format: "dd-MM-yyyy"
+            mean7_county_vmt_at_low:
+              type: number
+              example: 1542857.14
+            percent_change_from_low:
+              type: number
+              example: 76.57
+      responses:
+        "201":
+          description: "Operación exitosa"
+          schema:
+            properties:
+              success:
+                type: boolean
+              response:
+                properties:
+                  data:
+                    $ref: "#/definitions/VehicleMiles"
+
+        "422":
+          description: "Validaciones y excepciones controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+
+        "500":
+          description: "Excepciones no controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+  /vehicle-miles/{id}:
+    get:
+      tags:
+      - Vehicle Miles
+      summary: "Obtener por id"
+      description: "Servicio para obtener registros por identificador de base de datos"
+      operationId: "getItemsById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "identificador de base de datos"
+        type: number
+      responses:
+        "200":
+          description: "Operación exitosa"
+          schema:
+            properties:
+              success:
+                type: boolean
+              response:
+                properties:
+                  data:
+                    $ref: "#/definitions/VehicleMiles"
+
+        "422":
+          description: "Validaciones y excepciones controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+
+        "500":
+          description: "Excepciones no controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+    put:
+      tags:
+      - Vehicle Miles
+      summary: "Editar por id"
+      description: "Servicio para editar un registro por el identificador de base de datos"
+      operationId: "editById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "identificador de base de datos"
+        type: number
+      - in: "body"
+        name: "body"
+        description: "Payload. Datos de entrada."
+        required: true
+        schema:
+          properties:
+            county_fips:
+             type: number
+             example: 1001
+            county_name:
+              type: string
+              example: "Autauga"
+            state_name:
+              type: string
+              example: "Alabama"
+            date:
+              type: string
+              example: "20-02-2022"
+              format: "dd-MM-yyyy"
+            county_vmt:
+              type: number
+              example: 3550000
+            baseline_jan_vmt:
+              type: number
+              example: 3550000
+            percent_change_from_jan:
+              type: number
+              example: -0.6
+            mean7_county_vmt:
+              type: number
+              example: 2790000
+            mean7_percent_change_from_jan:
+              type: number
+              example: -21.88
+            date_at_low:
+              type: string
+              example: "04-12-2020"
+              format: "dd-MM-yyyy"
+            mean7_county_vmt_at_low:
+              type: number
+              example: 1542857.14
+            percent_change_from_low:
+              type: number
+              example: 76.57
+      responses:
+        "200":
+          description: "Operación exitosa"
+          schema:
+            properties:
+              success:
+                type: boolean
+              response:
+                properties:
+                  data:
+                    $ref: "#/definitions/VehicleMiles"
+
+        "422":
+          description: "Validaciones y excepciones controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+
+        "500":
+          description: "Excepciones no controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+    delete:
+      tags:
+      - Vehicle Miles
+      summary: "Eliminar por id"
+      description: "Servicio para eliminar registros por identificador de base de datos"
+      operationId: "deleteItemsById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id"
+        required: true
+        description: "identificador de base de datos"
+        type: number
+      responses:
+        "200":
+          description: "Operación exitosa"
+          schema:
+            properties:
+              success:
+                type: boolean
+              response:
+                properties:
+                  data:
+                    type: string
+                    example: "Eliminado"
+
+        "422":
+          description: "Validaciones y excepciones controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+
+        "500":
+          description: "Excepciones no controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+  /vehicle-miles/upload-data:
+    post:
+      tags:
+        - Vehicle Miles
+      summary: "Cargar datos"
+      description: "Cargar datos desde un archivo csv. <li>Se valida archivo solo .csv</li><li>No se insertarán registros que contengan datos vacios</li><li>Las fechas son validas con el siguiente formato 'dd-MM-yyyy'</li><li>Se insertarán los registros considerados como válidos y los que no, se retornará un referencia en el documento. fila y columna</li><li>Se considera que la primera línea del documento son las columnas</li>"
+      operationId: "uploadDataByDoc"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - in: formData
+        name: file
+        type: file
+        required: true
+        description: "Archivo a subir. Parámetro enviado por el formulario"
+      responses:
+        200:
+          description: "Operación exitosa."
+          schema:
+            properties:
+              success:
+                type: boolean
+              response:
+                properties:
+                  data:
+                    properties:
+                      message:
+                        type: string
+                        example: "Datos importados parcialmente. Total insertados: 9 de 10."
+                      errors:
+                        type: array
+                        items:
+                          type: string
+                          example: "Error asignando 'date', fila: 10, columna_no: 4, columna_valor: 4/30/20. Formato incorrecto. Corregir a dd-MM-yyyy"
+
+        "422":
+          description: "Validaciones y excepciones controladas"
+          schema:
+            $ref: "#/definitions/422Response"
+        "500":
+          description: "Excepciones no controladas"
+          schema:
+            $ref: "#/definitions/422Response"

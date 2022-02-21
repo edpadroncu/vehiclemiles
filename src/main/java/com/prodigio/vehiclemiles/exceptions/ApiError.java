@@ -1,4 +1,4 @@
-package com.prodigio.vehiclemiles.common.exceptions;
+package com.prodigio.vehiclemiles.exceptions;
 
 import lombok.Getter;
 import lombok.Setter;
