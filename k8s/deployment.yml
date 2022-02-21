@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vehiclemiles
+  labels:
+    name: vehiclemiles
+spec:
+  selector:
+    matchLabels:
+      app: vehiclemiles
+  replicas: 1
+  template:
+    metadata:
+      labels:
+         app: vehiclemiles
+    spec:
+      containers:
+        - name: vehiclemiles
+          image: vehiclemiles:latest
+          imagePullPolicy: "Always"
+          ports:
+            - containerPort: 8080
+                     
+      
