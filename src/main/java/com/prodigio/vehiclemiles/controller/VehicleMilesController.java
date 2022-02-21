@@ -23,7 +23,7 @@ public class VehicleMilesController {
 
     @GetMapping("/vehicle-miles")
     public ResponseEntity<?> getAll(){
-        return helper.httpResponse(false, vehicleMilesService.getAllVehicles(), HttpStatus.OK);
+        return helper.httpResponse(true, vehicleMilesService.getAllVehicles(), HttpStatus.OK);
     }
 
     @PostMapping("/vehicle-miles")

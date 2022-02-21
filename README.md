@@ -12,6 +12,10 @@ Desplegar en AWS:
 - Buscar que el pod está en ejecución: <b>kubectl get pods | grep vehicle</b>
 - Ejecutar port-forward al proyecto en el cloud: <b>kubectl port-forward vehiclemiles-5f88cccb65-7455h 8081:8080</b>
 
+Heroku
+- base-url: https://vehicle-miles-traveled.herokuapp.com/
+- swagger: https://vehicle-miles-traveled.herokuapp.com/swagger-ui.html
+
 ## Notes:
 - La Documentación de la API está publicada bajo la url http://localhost:8080/swagger-ui.html
 - La applicación puede bien usar postgres como repositorio de datos o bien H2.
